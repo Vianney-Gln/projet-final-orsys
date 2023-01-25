@@ -17,10 +17,6 @@ import lombok.ToString;
 @ToString
 public class Locataire extends Utilisateur {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private LocalDateTime dateHeureInscription;
 
 	@ManyToOne

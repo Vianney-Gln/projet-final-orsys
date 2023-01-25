@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -27,7 +28,8 @@ public class Location {
 	private LocalDateTime dateHeureDebut;
 	private LocalDateTime dateHeureFin;
 	private double montantEnEuros;
-	private String remarque;
+	@Lob
+	private String remarques;
 
 	@ManyToOne
 	private Locataire locataire;
@@ -40,6 +42,6 @@ public class Location {
 	private Concessionnaire concessionnaire;
 
 	@ManyToOne
-	private Status status;
+	private Statut statut;
 
 }

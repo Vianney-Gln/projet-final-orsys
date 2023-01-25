@@ -24,7 +24,7 @@ public class File {
 
 	private byte numero;
 
-	private Double prixJournalier;
+	private double prixJournalier;
 
 	@OneToMany(mappedBy = "file")
 	private List<Parasol> parasols;

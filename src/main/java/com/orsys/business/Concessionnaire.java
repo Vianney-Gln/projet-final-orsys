@@ -12,10 +12,6 @@ import lombok.ToString;
 @ToString
 public class Concessionnaire extends Utilisateur {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String numeroTelephone;
 
 }

@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Status {
+public class Statut {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
