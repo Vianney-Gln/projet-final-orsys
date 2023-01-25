@@ -5437,3 +5437,5 @@ Caused by: org.hibernate.MappingException: Could not determine type for: com.ors
 2023-01-25 14:26:18.301  WARN 6464 --- [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
 2023-01-25 14:26:18.301  WARN 6464 --- [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : DROP cascade sur contrainte fkc1g8do1rrrp4bwytrl73elnou sur table utilisateur
 2023-01-25 14:26:18.302  WARN 6464 --- [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2023-01-25 14:26:18.302  WARN 6464 --- [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : la table « statut » n'existe pas, poursuite du traitement
+2023-01-25 14:26:18.561  WARN 6464 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
