@@ -1,14 +1,23 @@
 package com.orsys.initial;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.orsys.business.Concessionnaire;
 import com.orsys.business.File;
 import com.orsys.business.LienDeParente;
 import com.orsys.business.Parasol;
+import com.orsys.business.Pays;
+import com.orsys.business.Statut;
+import com.orsys.dao.IConcessionnaireDao;
 import com.orsys.dao.IFileDao;
 import com.orsys.dao.ILienDeParenteDao;
 import com.orsys.dao.IParasolDao;
+import com.orsys.dao.IPaysDao;
+import com.orsys.dao.IStatutDao;
 
 import lombok.AllArgsConstructor;
 
@@ -19,11 +28,17 @@ public class InitController implements CommandLineRunner {
 	private IFileDao fileDao;
 	private IParasolDao parasolDao;
 	private ILienDeParenteDao lienDeParenteDao;
+	private IPaysDao paysDao;
+	private IStatutDao statutDao;
+	private IConcessionnaireDao concessionnaireDao;
 
 	@Override
 	public void run(String... args) throws Exception {
 		ajoutFiles();
 		ajoutLienDeParente();
+		ajoutPays();
+		ajoutStatut();
+		ajoutConcessionnaire();
 		System.out.println("Initialisation ok");
 
 	}
@@ -70,6 +85,60 @@ public class InitController implements CommandLineRunner {
 		lienDeParente3.setCoefficient(50F);
 		lienDeParenteDao.save(lienDeParente3);
 
+	}
+
+	/**
+	 * Ajout de 5 pays
+	 */
+	void ajoutPays() {
+
+		Pays pays1 = new Pays();
+		pays1.setCode("FR");
+		pays1.setNom("France");
+		paysDao.save(pays1);
+
+		Pays pays2 = new Pays();
+		pays2.setCode("IT");
+		pays2.setNom("Italie");
+		paysDao.save(pays2);
+
+		Pays pays3 = new Pays();
+		pays3.setCode("ES");
+		pays3.setNom("Espagne");
+		paysDao.save(pays3);
+
+		Pays pays4 = new Pays();
+		pays4.setCode("DEU");
+		pays4.setNom("Allemagne");
+		paysDao.save(pays4);
+
+		Pays pays5 = new Pays();
+		pays5.setCode("BEL");
+		pays5.setNom("Belgique");
+		paysDao.save(pays5);
+
+	}
+
+	/**
+	 * Ajout de 3 statuts
+	 */
+	void ajoutStatut() {
+		List<String> noms = Arrays.asList("A traiter", "Confirmée", "refusée");
+		noms.forEach(nom -> {
+			Statut statut = new Statut();
+			statut.setNom(nom);
+			statutDao.save(statut);
+		});
+	}
+
+	void ajoutConcessionnaire() {
+		Concessionnaire concessionnaire = new Concessionnaire();
+		concessionnaire.setEmail("peppe@orsys.fr");
+		concessionnaire.setMotDePasse("1234");
+		concessionnaire.setNumeroTelephone("+3912345678");
+		concessionnaire.setNom("Peppe");
+		concessionnaire.setPrenom("Mario");
+		concessionnaireDao.save(concessionnaire);
 	}
 
 }
