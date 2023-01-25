@@ -1,5 +1,6 @@
 package com.orsys.initial;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,12 +10,14 @@ import org.springframework.stereotype.Component;
 import com.orsys.business.Concessionnaire;
 import com.orsys.business.File;
 import com.orsys.business.LienDeParente;
+import com.orsys.business.Locataire;
 import com.orsys.business.Parasol;
 import com.orsys.business.Pays;
 import com.orsys.business.Statut;
 import com.orsys.dao.IConcessionnaireDao;
 import com.orsys.dao.IFileDao;
 import com.orsys.dao.ILienDeParenteDao;
+import com.orsys.dao.ILocataireDao;
 import com.orsys.dao.IParasolDao;
 import com.orsys.dao.IPaysDao;
 import com.orsys.dao.IStatutDao;
@@ -31,6 +34,7 @@ public class InitController implements CommandLineRunner {
 	private IPaysDao paysDao;
 	private IStatutDao statutDao;
 	private IConcessionnaireDao concessionnaireDao;
+	private ILocataireDao locataireDao;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -39,6 +43,7 @@ public class InitController implements CommandLineRunner {
 		ajoutPays();
 		ajoutStatut();
 		ajoutConcessionnaire();
+		ajoutLocataire();
 		System.out.println("Initialisation ok");
 
 	}
@@ -131,14 +136,33 @@ public class InitController implements CommandLineRunner {
 		});
 	}
 
+	/**
+	 * Ajout concessionnaire
+	 */
 	void ajoutConcessionnaire() {
 		Concessionnaire concessionnaire = new Concessionnaire();
 		concessionnaire.setEmail("peppe@orsys.fr");
-		concessionnaire.setMotDePasse("1234");
+		concessionnaire.setMotDePasse("12345678");
 		concessionnaire.setNumeroTelephone("+3912345678");
 		concessionnaire.setNom("Peppe");
 		concessionnaire.setPrenom("Mario");
 		concessionnaireDao.save(concessionnaire);
+	}
+
+	/**
+	 * Ajout Locataire
+	 */
+	void ajoutLocataire() {
+		Locataire locataire = new Locataire();
+		Pays pays = paysDao.findById("FR").orElse(null);
+		locataire.setPays(pays);
+		locataire.setEmail("test@gmail.com");
+		locataire.setMotDePasse("12345678");
+		locataire.setNom("Geloen");
+		locataire.setPrenom("Vianney");
+		locataire.setDateHeureInscription(LocalDateTime.now());
+		locataireDao.save(locataire);
+
 	}
 
 }
