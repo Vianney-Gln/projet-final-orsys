@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import io.micrometer.core.lang.Nullable;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Parasol {
 	private byte numeroEmplacement;
 
 	@ManyToOne
+	@NotNull
 	private File file;
 
 	@ManyToMany(mappedBy = "parasols")

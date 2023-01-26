@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public abstract class Utilisateur {
 	protected Long id;
 	protected String prenom;
 	protected String nom;
+	@Size(min = 8, message = "Votre mot de passe doit comporter 8 caractères ou plus.")
 	protected String motDePasse;
 	protected String email;
 
