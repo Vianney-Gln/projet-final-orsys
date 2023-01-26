@@ -1,8 +1,9 @@
 package com.orsys.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,15 +23,16 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/")
-
+@CrossOrigin(origins = "http://localhost:4200")
 public class UtilisateurController {
 
 	private UtilisateurServiceImpl utilisateurService;
 	private UtilisateurMapper utilisateurMapper;
 
-	@GetMapping("user")
+	@PostMapping("login")
 	UtilisateurDto getUser(@RequestBody Credentials credentials) throws WrongCredentialsException {
 		String role = "";
+		String email = credentials.getEmail();
 		Utilisateur utilisateur = utilisateurService.getCurrentUser(credentials.getEmail());
 
 		if (utilisateur != null) {
@@ -43,6 +45,7 @@ public class UtilisateurController {
 			if (credentials.getPassword().equals(utilisateur.getMotDePasse())) {
 				UtilisateurDto utilisateurDto = utilisateurMapper.toDto(utilisateur);
 				utilisateurDto.setRole(role);
+				utilisateurDto.setId(utilisateur.getId());
 				return utilisateurDto;
 			} else {
 				throw new WrongCredentialsException("Mauvais credentials");
