@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +24,7 @@ public class Locataire extends Utilisateur {
 	@ManyToOne
 	private Pays pays;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "locataire")
 	private List<Location> locations;
 
