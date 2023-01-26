@@ -6,4 +6,6 @@ public interface ILocataireService {
 
 	Locataire addLocataire(Locataire locataire);
 
+	Locataire getLocataire(Long id);
+
 }

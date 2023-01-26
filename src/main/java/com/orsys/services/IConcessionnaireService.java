@@ -5,4 +5,6 @@ import com.orsys.business.Concessionnaire;
 public interface IConcessionnaireService {
 
 	Concessionnaire addConcessionnaire(Concessionnaire concessionnaire);
+
+	Concessionnaire getConcessionnaire(Long id);
 }

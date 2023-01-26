@@ -6,4 +6,6 @@ public interface IParasolService {
 
 	Parasol addParasol(Parasol parasol);
 
+	Parasol getParasol(Long id);
+
 }

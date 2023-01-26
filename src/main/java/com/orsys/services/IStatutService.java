@@ -6,4 +6,6 @@ public interface IStatutService {
 
 	Statut addStatut(Statut statut);
 
+	Statut getStatut(Long id);
+
 }
