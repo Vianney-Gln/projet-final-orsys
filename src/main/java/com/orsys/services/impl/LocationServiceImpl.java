@@ -36,6 +36,7 @@ public class LocationServiceImpl implements ILocationService {
 		Statut statut = statutService.getStatut(locationDto.getIdStatut());
 		Location location = locationMapper.toEntity(locationDto);
 		List<Parasol> listParasols = new ArrayList<>();
+		double prix = 0;
 
 		location.setConcessionnaire(concessionnaire);
 		location.setLocataire(locataire);
@@ -44,9 +45,12 @@ public class LocationServiceImpl implements ILocationService {
 		for (int i = 0; i < idParasols.length; i++) {
 			Parasol parasol = parasolService.getParasol(idParasols[i]);
 			listParasols.add(parasol);
+			prix += parasol.getFile().getPrixJournalier();
+
 		}
 
 		location.setParasols(listParasols);
+		location.setMontantEnEuros(prix);
 
 		return locationMapper.toDto(locationDao.save(location));
 	}
