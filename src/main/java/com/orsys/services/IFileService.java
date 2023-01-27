@@ -1,9 +1,11 @@
 package com.orsys.services;
 
+import java.util.List;
+
 import com.orsys.business.File;
 
 public interface IFileService {
 
-	File addFile(File file);
+	List<File> getFiles();
 
 }
