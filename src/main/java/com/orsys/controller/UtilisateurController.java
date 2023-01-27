@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.orsys.WrongCredentialsException;
 import com.orsys.auth.Credentials;
 import com.orsys.business.Concessionnaire;
 import com.orsys.business.Locataire;
 import com.orsys.business.Utilisateur;
 import com.orsys.dto.UtilisateurDto;
+import com.orsys.exceptions.WrongCredentialsException;
 import com.orsys.mapper.UtilisateurMapper;
 import com.orsys.services.impl.UtilisateurServiceImpl;
 
@@ -32,7 +32,6 @@ public class UtilisateurController {
 	@PostMapping("login")
 	UtilisateurDto getUser(@RequestBody Credentials credentials) throws WrongCredentialsException {
 		String role = "";
-		String email = credentials.getEmail();
 		Utilisateur utilisateur = utilisateurService.getCurrentUser(credentials.getEmail());
 
 		if (utilisateur != null) {

@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,6 +38,7 @@ public class Location {
 
 	@NotNull
 	@ManyToMany
+	@JsonIgnore
 	private List<Parasol> parasols;
 
 	@ManyToOne

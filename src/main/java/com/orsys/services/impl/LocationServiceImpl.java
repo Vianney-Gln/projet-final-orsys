@@ -10,8 +10,12 @@ import com.orsys.business.Locataire;
 import com.orsys.business.Location;
 import com.orsys.business.Parasol;
 import com.orsys.business.Statut;
+import com.orsys.business.Utilisateur;
 import com.orsys.dao.ILocationDao;
+import com.orsys.dao.IUtilisateurDao;
 import com.orsys.dto.LocationDto;
+import com.orsys.exceptions.LocationsInexistantesException;
+import com.orsys.exceptions.UtilisateurInexistantException;
 import com.orsys.mapper.LocationMapper;
 import com.orsys.services.ILocationService;
 
@@ -26,6 +30,8 @@ public class LocationServiceImpl implements ILocationService {
 	private LocataireServiceImpl locataireService;
 	private StatutServiceImpl statutService;
 	private ParasolServiceImpl parasolService;
+	private UtilisateurServiceImpl utilisateurService;
+	private IUtilisateurDao utilisateurDao;
 	private ILocationDao locationDao;
 
 	@Override
@@ -53,6 +59,24 @@ public class LocationServiceImpl implements ILocationService {
 		location.setMontantEnEuros(prix);
 
 		return locationMapper.toDto(locationDao.save(location));
+	}
+
+	@Override
+	public List<Location> getLocationByUser(Long idUser) {
+
+		if (utilisateurDao.existsById(idUser)) {
+			Utilisateur utilisateur = utilisateurService.getCurrentUser(idUser);
+
+			if (utilisateur instanceof Locataire locataire) {
+				locataire = (Locataire) utilisateur;
+				return locataire.getLocations();
+			} else {
+				throw new LocationsInexistantesException("Cet utilisateur ne possède pas de réservation");
+			}
+		} else {
+			throw new UtilisateurInexistantException("Cet utilisateur n'existe pas en base");
+		}
+
 	}
 
 }
