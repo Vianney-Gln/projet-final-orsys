@@ -25,6 +25,7 @@ public class Parasol {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Long id;
 
 	private byte numeroEmplacement;

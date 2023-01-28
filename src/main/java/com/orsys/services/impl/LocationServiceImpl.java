@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.orsys.business.Concessionnaire;
+import com.orsys.business.File;
 import com.orsys.business.Locataire;
 import com.orsys.business.Location;
 import com.orsys.business.Parasol;
@@ -13,6 +14,7 @@ import com.orsys.business.Statut;
 import com.orsys.business.Utilisateur;
 import com.orsys.dao.ILocationDao;
 import com.orsys.dao.IUtilisateurDao;
+import com.orsys.dto.DemandeReservationDto;
 import com.orsys.dto.LocationDto;
 import com.orsys.exceptions.LocationsInexistantesException;
 import com.orsys.exceptions.UtilisateurInexistantException;
@@ -33,30 +35,30 @@ public class LocationServiceImpl implements ILocationService {
 	private UtilisateurServiceImpl utilisateurService;
 	private IUtilisateurDao utilisateurDao;
 	private ILocationDao locationDao;
+	private FileServiceImpl fileService;
 
 	@Override
-	public LocationDto addLocation(LocationDto locationDto, Long... idParasols) {
+	public LocationDto addLocation(DemandeReservationDto demandeReservationDto) {
 
-		Concessionnaire concessionnaire = concessionnaireService.getConcessionnaire(locationDto.getIdConcessionnaire());
-		Locataire locataire = locataireService.getLocataire(locationDto.getIdLocataire());
-		Statut statut = statutService.getStatut(locationDto.getIdStatut());
-		Location location = locationMapper.toEntity(locationDto);
+		Concessionnaire concessionnaire = concessionnaireService.getConcessionnaire(1L);
+		Locataire locataire = locataireService.getLocataire(demandeReservationDto.getIdLocataire());
+		Statut statut = statutService.getStatut(1L);
+		List<File> files = fileService.getFiles();
 		List<Parasol> listParasols = new ArrayList<>();
-		double prix = 0;
+
+		Location location = new Location();
+		demandeReservationDto.getRequestedFiles().forEach(requestedFile -> {
+			Parasol parasol = new Parasol();
+			parasol.setFile(files.stream().filter(item -> item.getId().equals(requestedFile.getSelectedFile())).toList()
+					.get(0));
+			listParasols.add(parasol);
+			location.setMontantEnEuros(location.getMontantEnEuros() + parasol.getFile().getPrixJournalier());
+		});
 
 		location.setConcessionnaire(concessionnaire);
 		location.setLocataire(locataire);
 		location.setStatut(statut);
-
-		for (int i = 0; i < idParasols.length; i++) {
-			Parasol parasol = parasolService.getParasol(idParasols[i]);
-			listParasols.add(parasol);
-			prix += parasol.getFile().getPrixJournalier();
-
-		}
-
 		location.setParasols(listParasols);
-		location.setMontantEnEuros(prix);
 
 		return locationMapper.toDto(locationDao.save(location));
 	}
