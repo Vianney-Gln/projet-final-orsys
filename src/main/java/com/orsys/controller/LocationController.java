@@ -17,6 +17,7 @@ import com.orsys.business.Location;
 import com.orsys.dto.DemandeReservationDto;
 import com.orsys.dto.LocationDto;
 import com.orsys.exceptions.LocationsInexistantesException;
+import com.orsys.exceptions.OutOfDateException;
 import com.orsys.services.impl.LocationServiceImpl;
 
 import lombok.AllArgsConstructor;
@@ -48,4 +49,22 @@ public class LocationController {
 		return exception.getMessage();
 	}
 
+	@ExceptionHandler(NullPointerException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public String traiterChampsInexistant(Exception exception) {
+
+		return exception.getMessage();
+	}
+
+	@ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public String traiterChampsVides(Exception exception) {
+		return exception.getMessage();
+	}
+
+	@ExceptionHandler(OutOfDateException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public String traiterDatesInvalides(Exception exception) {
+		return exception.getMessage();
+	}
 }
