@@ -67,8 +67,8 @@ public class LocationServiceImpl implements ILocationService {
 		location.setRemarques(demandeReservationDto.getRemarques());
 
 		// Gestion des dates
-		LocalDateTime dateHeureDebut = LocalDateTime.parse(demandeReservationDto.getDateHeureDebut());
-		LocalDateTime dateHeureFin = LocalDateTime.parse(demandeReservationDto.getDateHeureFin());
+		LocalDateTime dateHeureDebut = LocalDateTime.parse(demandeReservationDto.getDateHeureDebut() + "T08:00");
+		LocalDateTime dateHeureFin = LocalDateTime.parse(demandeReservationDto.getDateHeureFin() + "T18:00");
 		int currentYear = LocalDate.now().getYear();
 		LocalDateTime debutSaison = LocalDateTime.parse(currentYear + "-06-01T08:00");
 		LocalDateTime finSaison = LocalDateTime.parse(currentYear + "-09-15T08:00");
