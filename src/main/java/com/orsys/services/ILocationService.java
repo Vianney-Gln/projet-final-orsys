@@ -11,4 +11,7 @@ public interface ILocationService {
 	LocationDto addLocation(DemandeReservationDto demandeReservation);
 
 	List<Location> getLocationByUser(Long idUser);
+
+	List<Location> getAllLocations();
+
 }

@@ -41,6 +41,12 @@ public class LocationController {
 
 		return locationService.getLocationByUser(id);
 	}
+
+	@GetMapping("locations")
+	List<Location> getAllLocations() {
+
+		return locationService.getAllLocations();
+	}
 	// EXCEPTIONS
 
 	@ExceptionHandler(LocationsInexistantesException.class)

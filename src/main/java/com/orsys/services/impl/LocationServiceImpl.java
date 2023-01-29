@@ -103,4 +103,10 @@ public class LocationServiceImpl implements ILocationService {
 
 	}
 
+	@Override
+	public List<Location> getAllLocations() {
+
+		return locationDao.findAll();
+	}
+
 }
