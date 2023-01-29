@@ -1,5 +1,6 @@
 package com.orsys.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,12 @@ public class LocationServiceImpl implements ILocationService {
 		location.setLocataire(locataire);
 		location.setStatut(statut);
 		location.setParasols(listParasols);
+		location.setRemarques(demandeReservationDto.getRemarques());
+
+		LocalDateTime dateHeureDebut = LocalDateTime.parse(demandeReservationDto.getDateHeureDebut());
+		LocalDateTime dateHeureFin = LocalDateTime.parse(demandeReservationDto.getDateHeureFin());
+		location.setDateHeureDebut(dateHeureDebut);
+		location.setDateHeureFin(dateHeureFin);
 
 		return locationMapper.toDto(locationDao.save(location));
 	}
