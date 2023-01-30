@@ -1,5 +1,6 @@
 package com.orsys.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Example;
@@ -41,10 +42,19 @@ public class ParasolServiceImpl implements IParasolService {
 
 	@Override
 	public List<Parasol> getParasolsByFile(File file) {
-		Parasol parasol = new Parasol();
-		parasol.setFile(file);
-		Example<Parasol> parasolExample = Example.of(parasol);
-		return parasolDao.findAll(parasolExample).stream().filter(para -> para.getNumeroEmplacement() != -1).toList();
+
+		List<Parasol> listParasol = new ArrayList<>();
+
+		for (int i = 0; i <= 8; i++) {
+			Parasol parasol = new Parasol();
+			parasol.setFile(file);
+			parasol.setNumeroEmplacement((byte) i);
+			Example<Parasol> parasolExample = Example.of(parasol);
+			listParasol.add(parasolDao.findOne(parasolExample).orElse(null));
+		}
+
+		return listParasol.stream().filter(para -> para.getNumeroEmplacement() != -1).toList();
+
 	}
 
 }
