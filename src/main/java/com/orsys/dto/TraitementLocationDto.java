@@ -1,5 +1,9 @@
 package com.orsys.dto;
 
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +13,8 @@ import lombok.ToString;
 @ToString
 public class TraitementLocationDto {
 
-	// List<Parasol> parasols;
+	List<Long> idsParasol;
+	@NotNull
 	Long idStatut;
 
 }

@@ -40,6 +40,7 @@ public class LocationServiceImpl implements ILocationService {
 	private IUtilisateurDao utilisateurDao;
 	private ILocationDao locationDao;
 	private FileServiceImpl fileService;
+	private ParasolServiceImpl parasolService;
 
 	@Override
 	public LocationDto addLocation(DemandeReservationDto demandeReservationDto)
@@ -125,15 +126,23 @@ public class LocationServiceImpl implements ILocationService {
 
 		Location currentLocation = getLocationById(id);
 		Statut currentLocationStatut = statutService.getStatut(traitementLocationDto.getIdStatut());
+		List<Parasol> listParasols = new ArrayList<>();
 
 		if (currentLocation != null) {
 
 			if (currentLocationStatut.getNom().equals("refusée")) {
 				currentLocation.setStatut(currentLocationStatut);
 				locationDao.save(currentLocation);
-				return "Demande de réservation mise à jour.";
-			}
 
+			} else {
+				traitementLocationDto.getIdsParasol().forEach(idParasol -> {
+					listParasols.add(parasolService.getParasol(idParasol));
+				});
+				currentLocation.setStatut(currentLocationStatut);
+				currentLocation.setParasols(listParasols);
+				locationDao.save(currentLocation);
+			}
+			return "Demande de réservation mise à jour.";
 		}
 
 		return "Echec mise à jour";

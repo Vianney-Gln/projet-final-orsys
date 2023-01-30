@@ -64,7 +64,7 @@ public class InitController implements CommandLineRunner {
 				file.setNumero(nbFile);
 				prix -= 7;
 				file = fileDao.save(file);
-				for (byte nbParasol = 0; nbParasol < 9; nbParasol++) {
+				for (byte nbParasol = 1; nbParasol <= 9; nbParasol++) {
 					Parasol parasol = new Parasol();
 					parasol.setNumeroEmplacement(nbParasol);
 					parasol.setFile(file);
