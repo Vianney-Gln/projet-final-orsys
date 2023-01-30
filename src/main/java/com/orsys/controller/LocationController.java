@@ -58,9 +58,9 @@ public class LocationController {
 	}
 
 	@PutMapping("location/{id}")
-	String traitementLocationById(@PathVariable Long id, @RequestBody TraitementLocationDto traitementLocationDto) {
+	void traitementLocationById(@PathVariable Long id, @RequestBody TraitementLocationDto traitementLocationDto) {
 
-		return locationService.traitementLocationById(id, traitementLocationDto);
+		locationService.traitementLocationById(id, traitementLocationDto);
 	}
 
 	// EXCEPTIONS

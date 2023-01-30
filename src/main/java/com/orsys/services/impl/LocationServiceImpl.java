@@ -122,7 +122,7 @@ public class LocationServiceImpl implements ILocationService {
 	}
 
 	@Override
-	public String traitementLocationById(Long id, TraitementLocationDto traitementLocationDto) {
+	public void traitementLocationById(Long id, TraitementLocationDto traitementLocationDto) {
 
 		Location currentLocation = getLocationById(id);
 		Statut currentLocationStatut = statutService.getStatut(traitementLocationDto.getIdStatut());
@@ -142,10 +142,9 @@ public class LocationServiceImpl implements ILocationService {
 				currentLocation.setParasols(listParasols);
 				locationDao.save(currentLocation);
 			}
-			return "Demande de réservation mise à jour.";
+
 		}
 
-		return "Echec mise à jour";
 	}
 
 }

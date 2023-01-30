@@ -17,6 +17,6 @@ public interface ILocationService {
 
 	Location getLocationById(Long id);
 
-	String traitementLocationById(Long id, TraitementLocationDto traitementLocation);
+	void traitementLocationById(Long id, TraitementLocationDto traitementLocation);
 
 }
