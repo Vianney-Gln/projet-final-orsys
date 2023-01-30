@@ -53,21 +53,26 @@ public class InitController implements CommandLineRunner {
 	 */
 	void ajoutFiles() {
 
-		int prix = 100;
+		List<File> listFiles = fileDao.findAll();
 
-		for (byte nbFile = 1; nbFile <= 8; nbFile++) {
-			File file = new File();
-			file.setPrixJournalier(prix);
-			file.setNumero(nbFile);
-			prix -= 7;
-			file = fileDao.save(file);
-			for (byte nbParasol = 0; nbParasol < 9; nbParasol++) {
-				Parasol parasol = new Parasol();
-				parasol.setNumeroEmplacement(nbParasol);
-				parasol.setFile(file);
-				parasolDao.save(parasol);
+		if (listFiles.size() != 8) {
+			int prix = 100;
+
+			for (byte nbFile = 1; nbFile <= 8; nbFile++) {
+				File file = new File();
+				file.setPrixJournalier(prix);
+				file.setNumero(nbFile);
+				prix -= 7;
+				file = fileDao.save(file);
+				for (byte nbParasol = 0; nbParasol < 9; nbParasol++) {
+					Parasol parasol = new Parasol();
+					parasol.setNumeroEmplacement(nbParasol);
+					parasol.setFile(file);
+					parasolDao.save(parasol);
+				}
 			}
 		}
+
 	}
 
 	/**
@@ -93,7 +98,7 @@ public class InitController implements CommandLineRunner {
 	}
 
 	/**
-	 * Ajout de 5 pays
+	 * Ajout de 5 pays.
 	 */
 	void ajoutPays() {
 
