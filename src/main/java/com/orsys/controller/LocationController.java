@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orsys.business.Location;
 import com.orsys.dto.DemandeReservationDto;
 import com.orsys.dto.LocationDto;
+import com.orsys.dto.TraitementLocationDto;
+import com.orsys.exceptions.InexistantLocationException;
 import com.orsys.exceptions.LocationsInexistantesException;
 import com.orsys.exceptions.OutOfDateException;
 import com.orsys.services.impl.LocationServiceImpl;
@@ -47,6 +50,19 @@ public class LocationController {
 
 		return locationService.getAllLocations();
 	}
+
+	@GetMapping("location/{id}")
+	Location getLocationById(@PathVariable Long id) {
+
+		return locationService.getLocationById(id);
+	}
+
+	@PutMapping("location/{id}")
+	String traitementLocationById(@PathVariable Long id, @RequestBody TraitementLocationDto traitementLocationDto) {
+
+		return locationService.traitementLocationById(id, traitementLocationDto);
+	}
+
 	// EXCEPTIONS
 
 	@ExceptionHandler(LocationsInexistantesException.class)
@@ -71,6 +87,12 @@ public class LocationController {
 	@ExceptionHandler(OutOfDateException.class)
 	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
 	public String traiterDatesInvalides(Exception exception) {
+		return exception.getMessage();
+	}
+
+	@ExceptionHandler(InexistantLocationException.class)
+	@ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+	public String traiterLocationInexistante(Exception exception) {
 		return exception.getMessage();
 	}
 }

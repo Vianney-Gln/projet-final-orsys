@@ -18,6 +18,8 @@ import com.orsys.dao.ILocationDao;
 import com.orsys.dao.IUtilisateurDao;
 import com.orsys.dto.DemandeReservationDto;
 import com.orsys.dto.LocationDto;
+import com.orsys.dto.TraitementLocationDto;
+import com.orsys.exceptions.InexistantLocationException;
 import com.orsys.exceptions.LocationsInexistantesException;
 import com.orsys.exceptions.OutOfDateException;
 import com.orsys.exceptions.UtilisateurInexistantException;
@@ -107,6 +109,34 @@ public class LocationServiceImpl implements ILocationService {
 	public List<Location> getAllLocations() {
 
 		return locationDao.findAll();
+	}
+
+	@Override
+	public Location getLocationById(Long id) {
+
+		if (locationDao.existsById(id)) {
+			return locationDao.findById(id).orElse(null);
+		}
+		throw new InexistantLocationException("Cette réservation n'existe pas en base.");
+	}
+
+	@Override
+	public String traitementLocationById(Long id, TraitementLocationDto traitementLocationDto) {
+
+		Location currentLocation = getLocationById(id);
+		Statut currentLocationStatut = statutService.getStatut(traitementLocationDto.getIdStatut());
+
+		if (currentLocation != null) {
+
+			if (currentLocationStatut.getNom().equals("refusée")) {
+				currentLocation.setStatut(currentLocationStatut);
+				locationDao.save(currentLocation);
+				return "Demande de réservation mise à jour.";
+			}
+
+		}
+
+		return "Echec mise à jour";
 	}
 
 }
