@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +34,6 @@ public class Location {
 	@ManyToOne
 	private Locataire locataire;
 
-	@NotNull
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	// @JsonIgnore
 	private List<Parasol> parasols;

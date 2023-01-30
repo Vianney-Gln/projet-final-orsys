@@ -50,14 +50,15 @@ public class LocationServiceImpl implements ILocationService {
 		Locataire locataire = locataireService.getLocataire(demandeReservationDto.getIdLocataire());
 		Statut statut = statutService.getStatut(1L);
 		List<File> files = fileService.getFiles();
-		List<Parasol> listParasols = new ArrayList<>();
 		Location location = new Location();
+		List<Parasol> listParasols = new ArrayList<>();
 
 		// Gestion des files
 		demandeReservationDto.getRequestedFiles().forEach(requestedFile -> {
-			Parasol parasol = new Parasol();
-			parasol.setFile(files.stream().filter(item -> item.getId().equals(requestedFile.getSelectedFile())).toList()
-					.get(0));
+
+			File file = files.stream().filter(item -> item.getId().equals(requestedFile.getSelectedFile())).toList()
+					.get(0);
+			Parasol parasol = parasolService.getReservationParasolByFile(file);
 			listParasols.add(parasol);
 			location.setMontantEnEuros(location.getMontantEnEuros() + parasol.getFile().getPrixJournalier());
 		});
