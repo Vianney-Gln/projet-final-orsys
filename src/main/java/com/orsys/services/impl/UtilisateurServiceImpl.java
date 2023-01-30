@@ -20,4 +20,10 @@ public class UtilisateurServiceImpl implements IUtilisateurService {
 		return utilisateurDao.findUtilisateurByEmail(email);
 	}
 
+	@Override
+	public Utilisateur getCurrentUser(Long id) {
+
+		return utilisateurDao.findById(id).orElse(null);
+	}
+
 }

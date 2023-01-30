@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.micrometer.core.lang.Nullable;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +25,7 @@ public class Parasol {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Long id;
 
 	private byte numeroEmplacement;
@@ -33,6 +36,7 @@ public class Parasol {
 
 	@ManyToMany(mappedBy = "parasols")
 	@Nullable
+	@JsonIgnore
 	private List<Location> locations;
 
 }

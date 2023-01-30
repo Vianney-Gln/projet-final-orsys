@@ -53,21 +53,26 @@ public class InitController implements CommandLineRunner {
 	 */
 	void ajoutFiles() {
 
-		int prix = 100;
+		List<File> listFiles = fileDao.findAll();
 
-		for (byte nbFile = 1; nbFile <= 8; nbFile++) {
-			File file = new File();
-			file.setPrixJournalier(prix);
-			file.setNumero(nbFile);
-			prix -= 7;
-			file = fileDao.save(file);
-			for (byte nbParasol = 0; nbParasol < 9; nbParasol++) {
-				Parasol parasol = new Parasol();
-				parasol.setNumeroEmplacement(nbParasol);
-				parasol.setFile(file);
-				parasolDao.save(parasol);
+		if (listFiles.size() != 8) {
+			int prix = 100;
+
+			for (byte nbFile = 1; nbFile <= 8; nbFile++) {
+				File file = new File();
+				file.setPrixJournalier(prix);
+				file.setNumero(nbFile);
+				prix -= 7;
+				file = fileDao.save(file);
+				for (byte nbParasol = 0; nbParasol < 9; nbParasol++) {
+					Parasol parasol = new Parasol();
+					parasol.setNumeroEmplacement(nbParasol);
+					parasol.setFile(file);
+					parasolDao.save(parasol);
+				}
 			}
 		}
+
 	}
 
 	/**
@@ -93,7 +98,7 @@ public class InitController implements CommandLineRunner {
 	}
 
 	/**
-	 * Ajout de 5 pays
+	 * Ajout de 5 pays.
 	 */
 	void ajoutPays() {
 
@@ -150,7 +155,7 @@ public class InitController implements CommandLineRunner {
 	}
 
 	/**
-	 * Ajout Locataire
+	 * Ajout Locataires
 	 */
 	void ajoutLocataire() {
 		Locataire locataire = new Locataire();
@@ -162,6 +167,33 @@ public class InitController implements CommandLineRunner {
 		locataire.setPrenom("Vianney");
 		locataire.setDateHeureInscription(LocalDateTime.now());
 		locataireDao.save(locataire);
+
+		Locataire locataire2 = new Locataire();
+		locataire2.setPays(paysDao.findById("BEL").orElse(null));
+		locataire2.setEmail("locataire2@gmail.com");
+		locataire2.setMotDePasse("12345678");
+		locataire2.setNom("Pignon");
+		locataire2.setPrenom("François");
+		locataire2.setDateHeureInscription(LocalDateTime.now());
+		locataireDao.save(locataire2);
+
+		Locataire locataire3 = new Locataire();
+		locataire3.setPays(paysDao.findById("ES").orElse(null));
+		locataire3.setEmail("locataire3@gmail.com");
+		locataire3.setMotDePasse("12345678");
+		locataire3.setNom("Aguilar");
+		locataire3.setPrenom("Diego");
+		locataire3.setDateHeureInscription(LocalDateTime.now());
+		locataireDao.save(locataire3);
+
+		Locataire locataire4 = new Locataire();
+		locataire4.setPays(paysDao.findById("IT").orElse(null));
+		locataire4.setEmail("locataire4@gmail.com");
+		locataire4.setMotDePasse("12345678");
+		locataire4.setNom("Rossi");
+		locataire4.setPrenom("Leonardo");
+		locataire4.setDateHeureInscription(LocalDateTime.now());
+		locataireDao.save(locataire4);
 
 	}
 

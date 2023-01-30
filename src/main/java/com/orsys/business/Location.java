@@ -3,6 +3,7 @@ package com.orsys.business;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,8 @@ public class Location {
 	private Locataire locataire;
 
 	@NotNull
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	// @JsonIgnore
 	private List<Parasol> parasols;
 
 	@ManyToOne

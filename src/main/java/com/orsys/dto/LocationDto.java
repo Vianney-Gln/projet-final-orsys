@@ -21,5 +21,6 @@ public class LocationDto {
 	private Long idLocataire;
 	private Long idConcessionnaire;
 	private Long idStatut = 1L;
+	// private List<Long> listidsParasol;
 
 }

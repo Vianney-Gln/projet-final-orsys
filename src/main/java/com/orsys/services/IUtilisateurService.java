@@ -6,4 +6,6 @@ public interface IUtilisateurService {
 
 	Utilisateur getCurrentUser(String email);
 
+	Utilisateur getCurrentUser(Long id);
+
 }

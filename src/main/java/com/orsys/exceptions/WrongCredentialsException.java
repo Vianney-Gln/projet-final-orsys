@@ -1,4 +1,4 @@
-package com.orsys;
+package com.orsys.exceptions;
 
 public class WrongCredentialsException extends RuntimeException {
 

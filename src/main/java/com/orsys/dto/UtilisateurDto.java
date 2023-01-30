@@ -13,6 +13,8 @@ public class UtilisateurDto {
 
 	private String nom;
 
+	private Long id;
+
 	private String role = "utilisateur";
 
 }
