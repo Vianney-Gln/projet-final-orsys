@@ -1,7 +1,9 @@
 package com.orsys.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import lombok.AllArgsConstructor;
 public class ParasolServiceImpl implements IParasolService {
 
 	private IParasolDao parasolDao;
+	private FileServiceImpl fileService;
 
 	@Override
 	public Parasol addParasol(Parasol parasol) {
@@ -41,19 +44,25 @@ public class ParasolServiceImpl implements IParasolService {
 	}
 
 	@Override
-	public List<Parasol> getParasolsByFile(File file) {
+	public Map<Long, List<Parasol>> getParasolsByFile(List<Long> fileIds) {
+		Map<Long, List<Parasol>> parasolsByFile = new HashMap<>();
+		List<File> currentFiles = fileService.findByFileIds(fileIds);
 
-		List<Parasol> listParasol = new ArrayList<>();
+		currentFiles.forEach(file -> {
+			List<Parasol> listParasol = new ArrayList<>();
 
-		for (int i = 0; i <= 8; i++) {
-			Parasol parasol = new Parasol();
-			parasol.setFile(file);
-			parasol.setNumeroEmplacement((byte) i);
-			Example<Parasol> parasolExample = Example.of(parasol);
-			listParasol.add(parasolDao.findOne(parasolExample).orElse(null));
-		}
+			for (int i = 0; i <= 8; i++) {
+				Parasol parasol = new Parasol();
+				parasol.setFile(file);
+				parasol.setNumeroEmplacement((byte) i);
+				Example<Parasol> parasolExample = Example.of(parasol);
+				listParasol.add(parasolDao.findOne(parasolExample).orElse(null));
+			}
+			parasolsByFile.put(file.getId(),
+					listParasol.stream().filter(para -> para.getNumeroEmplacement() != -1).toList());
+		});
 
-		return listParasol.stream().filter(para -> para.getNumeroEmplacement() != -1).toList();
+		return parasolsByFile;
 
 	}
 

@@ -142,6 +142,7 @@ public class LocationServiceImpl implements ILocationService {
 				currentLocation.setStatut(currentLocationStatut);
 				currentLocation.setParasols(listParasols);
 				locationDao.save(currentLocation);
+
 			}
 
 		}

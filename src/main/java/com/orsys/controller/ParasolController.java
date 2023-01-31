@@ -1,14 +1,16 @@
 package com.orsys.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.orsys.business.File;
 import com.orsys.business.Parasol;
 import com.orsys.services.impl.ParasolServiceImpl;
 
@@ -22,10 +24,10 @@ public class ParasolController {
 
 	private ParasolServiceImpl parasolService;
 
-	@GetMapping("parasols")
-	List<Parasol> getParasolsByFile(@RequestBody File file) {
+	@GetMapping("parasols/{fileIds}")
+	Map<Long, List<Parasol>> getParasolsByFile(@PathVariable @NotNull List<Long> fileIds) {
 
-		return parasolService.getParasolsByFile(file);
+		return parasolService.getParasolsByFile(fileIds);
 	}
 
 }

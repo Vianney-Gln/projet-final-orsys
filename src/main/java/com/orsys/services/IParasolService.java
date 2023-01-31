@@ -1,6 +1,7 @@
 package com.orsys.services;
 
 import java.util.List;
+import java.util.Map;
 
 import com.orsys.business.File;
 import com.orsys.business.Parasol;
@@ -14,7 +15,7 @@ public interface IParasolService {
 	// Le parasol dont l'emplacement vaut -1
 	Parasol getReservationParasolByFile(File file);
 
-	// Liste des parasols par files
-	List<Parasol> getParasolsByFile(File file);
+	// Map des parasols par idfiles
+	Map<Long, List<Parasol>> getParasolsByFile(List<Long> fileIds);
 
 }
