@@ -22,4 +22,9 @@ public class FileServiceImpl implements IFileService {
 		return fileDao.findAll();
 	}
 
+	public List<File> findByFileIds(List<Long> fileIds) {
+
+		return fileDao.findByFileIds(fileIds);
+	}
+
 }

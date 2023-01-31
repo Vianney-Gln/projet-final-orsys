@@ -8,4 +8,6 @@ public interface IFileService {
 
 	List<File> getFiles();
 
+	List<File> findByFileIds(List<Long> fileIds);
+
 }
