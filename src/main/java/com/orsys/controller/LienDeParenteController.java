@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orsys.business.LienDeParente;
 import com.orsys.services.LienDeParenteServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -22,6 +23,7 @@ public class LienDeParenteController {
 	private LienDeParenteServiceImpl lienDeParenteService;
 
 	@GetMapping("lienDeParente")
+	@Operation(description = "Renvois la liste des différents liens de parentés")
 	List<LienDeParente> getLienDeParentes() {
 
 		return lienDeParenteService.getLienDeParente();
@@ -29,6 +31,7 @@ public class LienDeParenteController {
 	}
 
 	@GetMapping("lienDeParente/{id}")
+	@Operation(description = "Renvois un lien de parenté par id")
 	LienDeParente getLienDeParenteById(@PathVariable Long id) {
 
 		return lienDeParenteService.getLienDeParenteById(id);

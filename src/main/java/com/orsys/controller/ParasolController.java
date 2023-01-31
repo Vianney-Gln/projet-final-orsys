@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orsys.business.Parasol;
 import com.orsys.services.impl.ParasolServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -25,6 +26,7 @@ public class ParasolController {
 	private ParasolServiceImpl parasolService;
 
 	@GetMapping("parasols/{fileIds}")
+	@Operation(description = "Renvois une map de liste de parasols par files")
 	Map<Long, List<Parasol>> getParasolsByFile(@PathVariable @NotNull List<Long> fileIds) {
 
 		return parasolService.getParasolsByFile(fileIds);

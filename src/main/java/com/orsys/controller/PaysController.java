@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orsys.business.Pays;
 import com.orsys.services.impl.PaysServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -22,12 +23,14 @@ public class PaysController {
 	private PaysServiceImpl paysService;
 
 	@GetMapping("pays")
+	@Operation(description = "Renvois la liste des différents pays disponible")
 	List<Pays> getAllPays() {
 
 		return paysService.getPays();
 	}
 
 	@GetMapping("pays/{id}")
+	@Operation(description = "Renvois un pays par son id")
 	Pays getPaysById(@PathVariable String id) {
 
 		return paysService.getPaysById(id);

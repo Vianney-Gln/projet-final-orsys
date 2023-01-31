@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orsys.business.File;
 import com.orsys.services.impl.FileServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -21,6 +22,7 @@ public class FileController {
 	private FileServiceImpl fileService;
 
 	@GetMapping("files")
+	@Operation(description = "Renvois la liste des files")
 	List<File> getFiles() {
 
 		return fileService.getFiles();

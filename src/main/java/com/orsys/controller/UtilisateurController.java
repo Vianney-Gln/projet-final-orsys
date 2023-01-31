@@ -21,6 +21,7 @@ import com.orsys.mapper.UtilisateurMapper;
 import com.orsys.services.impl.LocataireServiceImpl;
 import com.orsys.services.impl.UtilisateurServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -34,6 +35,7 @@ public class UtilisateurController {
 	private LocataireServiceImpl locataireService;
 
 	@PostMapping("login")
+	@Operation(description = "permet de s'authentifier")
 	UtilisateurDto getUser(@RequestBody Credentials credentials) throws WrongCredentialsException {
 		String role = "";
 		Utilisateur utilisateur = utilisateurService.getCurrentUser(credentials.getEmail());
@@ -60,6 +62,7 @@ public class UtilisateurController {
 	}
 
 	@PostMapping("inscription")
+	@Operation(description = "ajoute un nouvel utilisateur")
 	LocataireDto addNewUser(@RequestBody LocataireDto locataireDto) {
 
 		return locataireService.addLocataire(locataireDto);

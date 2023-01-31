@@ -23,6 +23,7 @@ import com.orsys.exceptions.LocationsInexistantesException;
 import com.orsys.exceptions.OutOfDateException;
 import com.orsys.services.impl.LocationServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -34,30 +35,35 @@ public class LocationController {
 	private LocationServiceImpl locationService;
 
 	@PostMapping("location")
+	@Operation(description = "Crée une demande de réservation")
 	LocationDto addLocation(@RequestBody DemandeReservationDto demandeReservationDto) {
 
 		return locationService.addLocation(demandeReservationDto);
 	}
 
 	@GetMapping("location/user/{id}")
+	@Operation(description = "Renvois la liste des différentes réservation pour un utilisateur")
 	List<Location> getLocationsByUser(@PathVariable Long id) {
 
 		return locationService.getLocationByUser(id);
 	}
 
 	@GetMapping("locations")
+	@Operation(description = "Renvois la liste de toutes les réservations")
 	List<Location> getAllLocations() {
 
 		return locationService.getAllLocations();
 	}
 
 	@GetMapping("location/{id}")
+	@Operation(description = "Renvois une réservation précise par id")
 	Location getLocationById(@PathVariable Long id) {
 
 		return locationService.getLocationById(id);
 	}
 
 	@PutMapping("location/{id}")
+	@Operation(description = "Traite la demande de réservation")
 	void traitementLocationById(@PathVariable Long id, @RequestBody TraitementLocationDto traitementLocationDto) {
 
 		locationService.traitementLocationById(id, traitementLocationDto);
