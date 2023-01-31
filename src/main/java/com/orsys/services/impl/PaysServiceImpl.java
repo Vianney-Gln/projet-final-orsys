@@ -22,4 +22,10 @@ public class PaysServiceImpl implements IPaysService {
 		return paysDao.findAll();
 	}
 
+	@Override
+	public Pays getPaysById(String id) {
+
+		return paysDao.findById(id).orElse(null);
+	}
+
 }

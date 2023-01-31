@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,13 @@ public class LienDeParenteController {
 	List<LienDeParente> getLienDeParentes() {
 
 		return lienDeParenteService.getLienDeParente();
+
+	}
+
+	@GetMapping("lienDeParente/{id}")
+	LienDeParente getLienDeParenteById(@PathVariable Long id) {
+
+		return lienDeParenteService.getLienDeParenteById(id);
 
 	}
 

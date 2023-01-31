@@ -8,4 +8,6 @@ public interface IPaysService {
 
 	List<Pays> getPays();
 
+	Pays getPaysById(String id);
+
 }

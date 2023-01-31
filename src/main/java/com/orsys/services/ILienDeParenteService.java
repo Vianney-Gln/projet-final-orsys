@@ -8,4 +8,6 @@ public interface ILienDeParenteService {
 
 	List<LienDeParente> getLienDeParente();
 
+	LienDeParente getLienDeParenteById(Long id);
+
 }

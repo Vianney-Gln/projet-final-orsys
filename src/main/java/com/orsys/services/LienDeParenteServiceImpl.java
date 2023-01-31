@@ -21,4 +21,10 @@ public class LienDeParenteServiceImpl implements ILienDeParenteService {
 		return lienDeParenteDao.findAll();
 	}
 
+	@Override
+	public LienDeParente getLienDeParenteById(Long id) {
+
+		return lienDeParenteDao.findById(id).orElse(null);
+	}
+
 }
