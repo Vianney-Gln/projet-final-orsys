@@ -26,5 +26,4 @@ public class FileServiceImpl implements IFileService {
 
 		return fileDao.findByFileIds(fileIds);
 	}
-
 }
