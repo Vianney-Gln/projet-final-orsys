@@ -1,9 +1,13 @@
 package com.orsys.services;
 
+import java.util.List;
+
 import com.orsys.business.LienDeParente;
 
 public interface ILienDeParenteService {
 
-	LienDeParente addLienDeParente(LienDeParente lienDeParente);
+	List<LienDeParente> getLienDeParente();
+
+	LienDeParente getLienDeParenteById(Long id);
 
 }
