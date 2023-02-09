@@ -25,11 +25,12 @@ public class ParasolController {
 
 	private ParasolServiceImpl parasolService;
 
-	@GetMapping("parasols/{fileIds}")
+	@GetMapping("parasols/{fileIds}/{dateStr}")
 	@Operation(description = "Renvois une map de liste de parasols par files")
-	Map<Long, List<Parasol>> getParasolsByFile(@PathVariable @NotNull List<Long> fileIds) {
+	Map<Long, List<Parasol>> getParasolsByFile(@PathVariable @NotNull List<Long> fileIds,
+			@PathVariable String dateStr) {
 
-		return parasolService.getParasolsByFile(fileIds);
+		return parasolService.getParasolsByFile(fileIds, dateStr);
 	}
 
 }

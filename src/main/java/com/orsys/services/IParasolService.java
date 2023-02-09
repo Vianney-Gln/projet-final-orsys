@@ -16,6 +16,6 @@ public interface IParasolService {
 	Parasol getReservationParasolByFile(File file);
 
 	// Map des parasols par idfiles
-	Map<Long, List<Parasol>> getParasolsByFile(List<Long> fileIds);
+	Map<Long, List<Parasol>> getParasolsByFile(List<Long> fileIds, String dateStr);
 
 }

@@ -1,5 +1,6 @@
 package com.orsys.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.orsys.business.File;
+import com.orsys.business.Location;
 import com.orsys.business.Parasol;
 import com.orsys.dao.IParasolDao;
 import com.orsys.services.IParasolService;
@@ -43,10 +45,16 @@ public class ParasolServiceImpl implements IParasolService {
 		return parasolDao.findOne(parasolExample).orElse(null);
 	}
 
+	/**
+	 * Renvoie une map clé id de file et valeur list de parasols Verifie si un
+	 * parasol possède déjà une réservation avant de l'envoyer dans la map
+	 */
+
 	@Override
-	public Map<Long, List<Parasol>> getParasolsByFile(List<Long> fileIds) {
+	public Map<Long, List<Parasol>> getParasolsByFile(List<Long> fileIds, String dateStr) {
 		Map<Long, List<Parasol>> parasolsByFile = new HashMap<>();
 		List<File> currentFiles = fileService.findByFileIds(fileIds);
+		LocalDateTime currDate = LocalDateTime.parse(dateStr);
 
 		currentFiles.forEach(file -> {
 			List<Parasol> listParasol = new ArrayList<>();
@@ -56,7 +64,23 @@ public class ParasolServiceImpl implements IParasolService {
 				parasol.setFile(file);
 				parasol.setNumeroEmplacement((byte) i);
 				Example<Parasol> parasolExample = Example.of(parasol);
-				listParasol.add(parasolDao.findOne(parasolExample).orElse(null));
+				Parasol currParasol = parasolDao.findOne(parasolExample).orElse(null);
+				List<Location> currParasolLocations = currParasol.getLocations();
+
+				if (!currParasolLocations.isEmpty()) {
+					currParasolLocations.forEach(currParasLoc -> {
+
+						if (!currParasLoc.getDateHeureDebut().equals(currDate)) {
+
+							listParasol.add(currParasol);
+
+						}
+					});
+				} else {
+					listParasol.add(currParasol);
+
+				}
+
 			}
 			parasolsByFile.put(file.getId(),
 					listParasol.stream().filter(para -> para.getNumeroEmplacement() != -1).toList());

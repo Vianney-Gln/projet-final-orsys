@@ -145,6 +145,8 @@ public class LocationServiceImpl implements ILocationService {
 
 			}
 
+		} else {
+			throw new InexistantLocationException("Cette demande de réservation n'existe pas");
 		}
 
 	}
